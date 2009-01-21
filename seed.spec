@@ -14,6 +14,7 @@ Source0: http://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
 Patch: seed-0.3.1-libffi.patch
 Patch1: seed-0.3.1-no-werror.patch
 Patch2: seed-0.3.1-fix-linking.patch
+Patch3: seed-0.3-lib64.patch
 #gw libseed is LGPL, seed is GPL
 License: LGPLv3+ and GPLv3+
 Group: Development/Other
@@ -69,6 +70,7 @@ your GObject library.
 %patch -p1
 %patch1 -p1
 %patch2 -p1 -b .fix-linking
+%patch3 -p1
 libtoolize --copy --force
 autoreconf
 

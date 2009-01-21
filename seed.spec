@@ -25,6 +25,7 @@ BuildRequires: webkitgtk-devel
 BuildRequires: readline-devel
 BuildRequires: sqlite3-devel
 BuildRequires: gtk-doc
+BuildRequires: intltool
 
 %description
 Seed is a library and interpreter, dynamically bridging (through

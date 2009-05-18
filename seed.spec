@@ -21,6 +21,7 @@ BuildRequires: gobject-introspection-devel >= 0.6.3
 BuildRequires: webkitgtk-devel
 BuildRequires: readline-devel
 BuildRequires: sqlite3-devel
+BuildRequires: dbus-glib-devel
 BuildRequires: gtk-doc
 BuildRequires: intltool
 

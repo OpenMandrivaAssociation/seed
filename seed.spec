@@ -24,6 +24,7 @@ BuildRequires: sqlite3-devel
 BuildRequires: dbus-glib-devel
 BuildRequires: gtk-doc
 BuildRequires: intltool
+Requires: %libname = %version-%release
 
 %description
 Seed is a library and interpreter, dynamically bridging (through

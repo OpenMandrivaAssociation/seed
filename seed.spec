@@ -72,7 +72,7 @@ make
 
 %install
 rm -rf %{buildroot}
-%makeinstall_std
+%makeinstall_std seedlibdir=%_libdir/%name
 rm -f %buildroot%_libdir/{*.a,seed/*.a}
 
 %clean

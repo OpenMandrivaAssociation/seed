@@ -1,6 +1,6 @@
 %define name seed
-%define version 0.3.1
-%define release %mkrel 5
+%define version 0.7
+%define release %mkrel 1
 
 %define major 0
 %define libname %mklibname %name %major
@@ -11,17 +11,13 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Source0: http://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
-Patch: seed-0.3.1-libffi.patch
-Patch1: seed-0.3.1-no-werror.patch
-Patch2: seed-0.3.1-fix-linking.patch
-Patch3: seed-0.3-lib64.patch
 #gw libseed is LGPL, seed is GPL
 License: LGPLv3+ and GPLv3+
 Group: Development/Other
 Url: http://live.gnome.org/Seed
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: ffi5-devel
-BuildRequires: gobject-introspection-devel
+BuildRequires: gobject-introspection-devel >= 0.6.3
 BuildRequires: webkitgtk-devel
 BuildRequires: readline-devel
 BuildRequires: sqlite3-devel
@@ -66,17 +62,12 @@ your GObject library.
 
 
 %prep
-%setup -q -n %name-0.3
-%patch -p1
-%patch1 -p1
-%patch2 -p1 -b .fix-linking
-%patch3 -p1 -b .lib64
-libtoolize --copy --force
-autoreconf
+%setup -q
 
 %build
-%configure2_5x --enable-gtk-doc
-%make
+%define _disable_ld_no_undefined 1
+%configure2_5x --enable-gtk-doc 
+make
 
 %install
 rm -rf %{buildroot}

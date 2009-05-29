@@ -1,6 +1,6 @@
 %define name seed
-%define version 0.7
-%define release %mkrel 2
+%define version 0.8
+%define release %mkrel 1
 
 %define major 0
 %define libname %mklibname %name %major
@@ -18,6 +18,7 @@ Url: http://live.gnome.org/Seed
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: ffi5-devel
 BuildRequires: gobject-introspection-devel >= 0.6.3
+BuildRequires: gnome-js-common
 BuildRequires: webkitgtk-devel
 BuildRequires: readline-devel
 BuildRequires: sqlite3-devel
@@ -68,13 +69,12 @@ your GObject library.
 
 %build
 %define _disable_ld_no_undefined 1
-%configure2_5x --enable-gtk-doc 
-make
+%configure2_5x --enable-gtk-doc --disable-static
+%make
 
 %install
 rm -rf %{buildroot}
-%makeinstall_std seedlibdir=%_libdir/%name
-rm -f %buildroot%_libdir/{*.a,seed/*.a}
+%makeinstall 
 
 %clean
 rm -rf %{buildroot}
@@ -83,7 +83,6 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc README AUTHORS
 %_bindir/seed
-%_bindir/seed_turtle
 %_datadir/seed
 %_libdir/seed
 

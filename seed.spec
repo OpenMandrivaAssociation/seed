@@ -1,5 +1,5 @@
 %define name seed
-%define version 0.8
+%define version 0.8.5
 %define release %mkrel 1
 
 %define major 0
@@ -84,6 +84,7 @@ rm -rf %{buildroot}
 %doc README AUTHORS
 %_bindir/seed
 %_datadir/seed
+%_mandir/man1/seed.1*
 %_libdir/seed
 
 %files -n %libname

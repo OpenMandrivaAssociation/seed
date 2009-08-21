@@ -1,5 +1,5 @@
 %define name seed
-%define version 2.27.90
+%define version 2.27.91
 %define release %mkrel 1
 
 %define major 0

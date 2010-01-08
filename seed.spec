@@ -77,6 +77,11 @@ your GObject library.
 rm -rf %{buildroot}
 %makeinstall 
 
+%check
+#gw fails in 2.29.5.2
+#https://bugzilla.gnome.org/show_bug.cgi?id=606380
+#make check
+
 %clean
 rm -rf %{buildroot}
 

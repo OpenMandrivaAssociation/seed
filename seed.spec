@@ -28,6 +28,7 @@ BuildRequires: dbus-glib-devel
 BuildRequires: mpfr-devel
 BuildRequires: gtk-doc
 BuildRequires: intltool
+BuildRequires: gnome-common
 Requires: %libname = %version-%release
 
 %description

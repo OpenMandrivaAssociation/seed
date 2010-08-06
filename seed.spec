@@ -71,6 +71,7 @@ your GObject library.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p0
 
 %build
 NOCONFIGURE=yes gnome-autogen.sh

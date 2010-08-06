@@ -1,6 +1,6 @@
 %define name seed
 %define version 2.30.0
-%define release %mkrel 2
+%define release %mkrel 3
 
 %define major 0
 %define libname %mklibname %name %major

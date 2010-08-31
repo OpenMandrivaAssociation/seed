@@ -1,6 +1,6 @@
 %define name seed
-%define version 2.30.0
-%define release %mkrel 3
+%define version 2.31.91
+%define release %mkrel 1
 
 %define major 0
 %define libname %mklibname %name %major
@@ -12,8 +12,6 @@ Version: %{version}
 Release: %{release}
 Source0: http://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
 #gw libseed is LGPL, seed is GPL
-Patch0: seed-2.30.0-gir0.9.patch
-Patch1: seed-2.30.0-link.patch
 License: LGPLv3+ and GPLv3+
 Group: Development/Other
 Url: http://live.gnome.org/Seed
@@ -70,12 +68,9 @@ your GObject library.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p0
 
 %build
-NOCONFIGURE=yes gnome-autogen.sh
-%configure2_5x --enable-gtk-doc --disable-static
+%configure2_5x --enable-gtk-doc --disable-static --with-webkit=1.0
 %make
 
 %install

@@ -1,33 +1,34 @@
-%define name seed
-%define version 3.0.0
-%define release %mkrel 2
-
 %define major 0
-%define libname %mklibname %name %major
-%define develname %mklibname -d %name
+%define libname %mklibname %{name} %major
+%define develname %mklibname -d %{name}
 
 Summary: GObject JavaScriptCore bridge
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source0: http://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
-#gw libseed is LGPL, seed is GPL
+Name: seed
+Version: 3.2.0
+Release: 1
 License: LGPLv3+ and GPLv3+
 Group: Development/Other
 Url: http://live.gnome.org/Seed
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires: ffi5-devel
-BuildRequires: gobject-introspection-devel >= 0.6.3
-BuildRequires: gnome-js-common
-BuildRequires: webkitgtk-devel
-BuildRequires: readline-devel
-BuildRequires: sqlite3-devel
-BuildRequires: dbus-glib-devel
-BuildRequires: mpfr-devel
-BuildRequires: gtk-doc
+Source0: http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.xz
+
 BuildRequires: intltool
 BuildRequires: gnome-common
-Requires: %libname = %version-%release
+BuildRequires: pkgconfig(cairo)
+BuildRequires: pkgconfig(dbus-1)
+BuildRequires: pkgconfig(dbus-glib-1)
+BuildRequires: pkgconfig(gdk-3.0)
+BuildRequires: pkgconfig(gnome-js-common)
+BuildRequires: pkgconfig(gobject-introspection-1.0) >= 0.6.3
+BuildRequires: pkgconfig(gthread-2.0)
+BuildRequires: pkgconfig(gtk+-3.0)
+BuildRequires: pkgconfig(libffi)
+BuildRequires: pkgconfig(libxml-2.0)
+BuildRequires: pkgconfig(sqlite3)
+BuildRequires: pkgconfig(webkitgtk-3.0)
+BuildRequires: readline-devel
+BuildRequires: mpfr-devel
+
+Requires: %{libname} = %{version}-%{release}
 
 %description
 Seed is a library and interpreter, dynamically bridging (through
@@ -37,71 +38,53 @@ immediately write applications around a significant portion of the
 GNOME platform, and easily embed JavaScript as a scripting-language in
 your GObject library.
 
-
-%package -n %libname
+%package -n %{libname}
 Group: System/Libraries
 Summary: GObject JavaScriptCore bridge - shared library
 
-%description -n %libname
-Seed is a library and interpreter, dynamically bridging (through
-GObjectIntrospection) the WebKit JavaScriptCore engine, with the
-GObject type system. In a more concrete sense, Seed enables you to
-immediately write applications around a significant portion of the
-GNOME platform, and easily embed JavaScript as a scripting-language in
-your GObject library.
+%description -n %{libname}
+This package contains the dynamic libraries from %{name}.
 
-%package -n %develname
+%package -n %{develname}
 Summary: GObject JavaScriptCore bridge - development library
 Group: Development/C
-Requires: %libname = %version-%release
-Provides: %name-devel = %version-%release
-Provides: lib%name-devel = %version-%release
+Requires: %{libname} = %{version}-%{release}
+Provides: %{name}-devel = %{version}-%{release}
 
-%description -n %develname
-Seed is a library and interpreter, dynamically bridging (through
-GObjectIntrospection) the WebKit JavaScriptCore engine, with the
-GObject type system. In a more concrete sense, Seed enables you to
-immediately write applications around a significant portion of the
-GNOME platform, and easily embed JavaScript as a scripting-language in
-your GObject library.
-
+%description -n %{develname}
+This packages contains the headers and libraries for %{name}.
 
 %prep
 %setup -q
+%apply_patches
 
 %build
-%configure2_5x --enable-gtk-doc --disable-static --with-webkit=1.0
+%configure2_5x \
+	--disable-static \
+	--with-webkit=3.0
+
 %make
 
 %install
 rm -rf %{buildroot}
 %makeinstall_std
 
-%check
-#gw fails in 2.29.5.2
-#https://bugzilla.gnome.org/show_bug.cgi?id=606380
-#make check
-
-%clean
-rm -rf %{buildroot}
+find %{buildroot} -name *.la | xargs rm 
 
 %files
-%defattr(-,root,root)
 %doc README AUTHORS
-%_bindir/seed
-%_datadir/seed
-%_mandir/man1/seed.1*
-%_libdir/seed
+%{_bindir}/seed
+%{_datadir}/seed-gtk3
+%{_mandir}/man1/seed.1*
+%{_libdir}/seed-gtk3
 
-%files -n %libname
-%defattr(-,root,root)
-%_libdir/libseed.so.%{major}*
+%files -n %{libname}
+%{_libdir}/libseed-gtk3.so.%{major}*
 
-%files -n %develname
-%defattr(-,root,root)
+%files -n %{develname}
 %doc ChangeLog
-%_libdir/libseed.so
-%_libdir/libseed.la
-%_libdir/pkgconfig/seed.pc
-%_includedir/seed
-%_datadir/gtk-doc/html/seed
+%{_libdir}/libseed-gtk3.so
+%{_libdir}/pkgconfig/seed.pc
+%{_includedir}/seed-gtk3
+%{_datadir}/gtk-doc/html/seed
+

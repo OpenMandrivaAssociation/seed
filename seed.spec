@@ -10,9 +10,12 @@ License: LGPLv3+ and GPLv3+
 Group: Development/Other
 Url: http://live.gnome.org/Seed
 Source0: http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.xz
+Patch0: seed-3.2.0-linkage.patch
 
 BuildRequires: intltool
 BuildRequires: gnome-common
+BuildRequires: gobject-introspection
+BuildRequires: gtk-doc
 BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(dbus-glib-1)
@@ -60,6 +63,7 @@ This packages contains the headers and libraries for %{name}.
 
 %build
 %configure2_5x \
+	--enable-gtk-doc \
 	--disable-static \
 	--with-webkit=3.0
 

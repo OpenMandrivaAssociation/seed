@@ -1,3 +1,5 @@
+%define url_ver	%(echo %{version}|cut -d. -f1,2)
+
 %define major 0
 %define libname %mklibname %{name} %major
 %define develname %mklibname -d %{name}
@@ -9,7 +11,7 @@ Release: 1
 License: LGPLv3+ and GPLv3+
 Group: Development/Other
 Url: http://live.gnome.org/Seed
-Source0: http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{name}-%{version}.tar.xz
+Source0: http://ftp.gnome.org/pub/GNOME/sources/seed/%{url_ver}/%{name}-%{version}.tar.xz
 Patch0: seed-3.2.0-linkage.patch
 
 BuildRequires: intltool
@@ -70,7 +72,6 @@ This packages contains the headers and libraries for %{name}.
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
 find %{buildroot} -name *.la | xargs rm 

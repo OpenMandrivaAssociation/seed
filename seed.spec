@@ -1,5 +1,6 @@
 %define	debug_package %{nil}
 %define url_ver %(echo %{version}|cut -d. -f1,2)
+%define	Werror_cflags	%nil
 
 %define major	0
 %define libname %mklibname %{name}-gtk3_ %{major}
@@ -7,13 +8,13 @@
 
 Summary:	GObject JavaScriptCore bridge
 Name:		seed
-Version:	3.2.0
-Release:	2
+Version:	3.8.1
+Release:	1
 License:	LGPLv3+ and GPLv3+
 Group:		Development/Other
 Url:		http://live.gnome.org/Seed
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/seed/%{url_ver}/%{name}-%{version}.tar.xz
-Patch0:		seed-3.2.0-linkage.patch
+Patch0:		seed-3.8.1-linkage.patch
 
 BuildRequires:	intltool
 BuildRequires:	gnome-common
@@ -63,7 +64,23 @@ This packages contains the headers and libraries for %{name}.
 %setup -q
 %apply_patches
 
+# add lib64 to dlsearch_path_spec
+sed -i.libdir_syssearch -e \
+  '/sys_lib_dlsearch_path_spec/s|/lib /usr/lib |/lib /lib64 /usr/lib /usr/lib64 |' \
+  configure
+sed -i.cflags -e \
+  's|^\([ \t][ \t]*\)CFLAGS=\"[^\$].*$|\1true|' \
+  configure
+
+# remove unneeded shebang
+(cd extensions &&
+    touch -r repl.js{,.timestamp} &&
+    sed -i '1,2d' repl.js &&
+    touch -r repl.js{.timestamp,} &&
+    rm repl.js.timestamp)
+
 %build
+libtoolize --copy --force
 autoreconf -fi
 %configure2_5x \
 	--enable-gtk-doc \

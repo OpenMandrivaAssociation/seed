@@ -9,7 +9,7 @@
 Summary:	GObject JavaScriptCore bridge
 Name:		seed
 Version:	3.8.1
-Release:	4
+Release:	5
 License:	LGPLv3+ and GPLv3+
 Group:		Development/Other
 Url:		http://live.gnome.org/Seed

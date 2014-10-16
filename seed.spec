@@ -9,7 +9,7 @@
 Summary:	GObject JavaScriptCore bridge
 Name:		seed
 Version:	3.8.1
-Release:	7
+Release:	8
 License:	LGPLv3+ and GPLv3+
 Group:		Development/Other
 Url:		http://live.gnome.org/Seed
@@ -82,9 +82,7 @@ sed -i.cflags -e \
 %build
 libtoolize --copy --force
 autoreconf -fi
-%configure2_5x \
-	--enable-gtk-doc \
-	--disable-static \
+%configure \
 	--with-webkit=3.0
 
 %make

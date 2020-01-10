@@ -62,7 +62,7 @@ This packages contains the headers and libraries for %{name}.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 # add lib64 to dlsearch_path_spec
 sed -i.libdir_syssearch -e \

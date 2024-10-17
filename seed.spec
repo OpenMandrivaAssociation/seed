@@ -12,7 +12,7 @@ Version:	3.8.1
 Release:	12
 License:	LGPLv3+ and GPLv3+
 Group:		Development/Other
-Url:		http://live.gnome.org/Seed
+Url:		https://live.gnome.org/Seed
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/seed/%{url_ver}/%{name}-%{version}.tar.xz
 Patch0:		seed-3.8.1-linkage.patch
 

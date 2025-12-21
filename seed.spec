@@ -16,6 +16,11 @@ Url:		https://live.gnome.org/Seed
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/seed/%{url_ver}/%{name}-%{version}.tar.xz
 Patch0:		seed-3.8.1-linkage.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	intltool
 BuildRequires:	gnome-common
 BuildRequires:	gtk-doc
